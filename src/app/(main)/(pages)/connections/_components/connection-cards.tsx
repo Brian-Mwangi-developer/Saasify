@@ -1,31 +1,30 @@
 import { ConnectionTypes } from '@/lib/types'
 import React from 'react'
 import {
-    Card,
-    CardDescription,
-    CardHeader,
-    CardTitle,
-  } from '@/components/ui/card'
-  import Image from 'next/image'
-  import Link from 'next/link'
-
-
+  Card,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import Image from 'next/image'
+import Link from 'next/link'
 
 type Props = {
-    type: ConnectionTypes
+  type: ConnectionTypes
   icon: string
   title: ConnectionTypes
   description: string
   callback?: () => void
-//   Reinsert back connection prop and in the function bellow
+  connected: {} & any
 }
 
-const ConnectionCard = ({description,
-    type,
-    icon,
-    title,
-    //reinsert connection
-    }: Props) => {
+const ConnectionCard = ({
+  description,
+  type,
+  icon,
+  title,
+  connected,
+}: Props) => {
   return (
     <Card className="flex w-full items-center justify-between">
       <CardHeader className="flex flex-col gap-4">
@@ -44,11 +43,11 @@ const ConnectionCard = ({description,
         </div>
       </CardHeader>
       <div className="flex flex-col items-center gap-2 p-4">
-        {/* {connected[type] ? (
+        {connected[type] ? (
           <div className="border-bg-primary rounded-lg border-2 px-3 py-2 font-bold text-white">
             Connected
           </div>
-        ) : ( */}
+        ) : (
           <Link
             href={
               title == 'Discord'
@@ -63,7 +62,7 @@ const ConnectionCard = ({description,
           >
             Connect
           </Link>
-        {/* )} */}
+        )}
       </div>
     </Card>
   )
