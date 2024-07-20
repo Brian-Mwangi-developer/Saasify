@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useEditor } from '@/providers/editor-provider'
 import { EditorCanvasTypes, EditorNodeType } from '@/lib/types'
 import { useNodeConnections } from '@/providers/connections-provider'
@@ -7,7 +7,7 @@ import { Separator } from '@/components/ui/separator'
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import EditorCanvasIconHelper from './editor-canvas-icon-helper'
 import { CONNECTIONS, EditorCanvasDefaultCardTypes } from '@/lib/constant'
-import { onDragStart } from '@/lib/editor-utils'
+import { onConnections, onDragStart } from '@/lib/editor-utils'
 import {
     Accordion,
     AccordionContent,
@@ -16,6 +16,8 @@ import {
   } from "@/components/ui/accordion"
 
 import RenderConnectionAccordion from './render-connection-accordion'
+import RenderOutputAccordion from './render-output-accordion'
+import { useFuzzieStore } from '@/store'
 
 
 type Props = {
@@ -25,7 +27,13 @@ type Props = {
 const EditorCanvasSidebar = ({ nodes }: Props) => {
     const { state } = useEditor()
     const { nodeConnection } = useNodeConnections()
+    const {googleFile, setSlackChannels} = useFuzzieStore()
 
+    useEffect(()=>{
+        if(state){
+            onConnections(nodeConnection,state, googleFile)
+        }
+    },[state])
     return (
         <aside>
             <Tabs
@@ -98,10 +106,10 @@ const EditorCanvasSidebar = ({ nodes }: Props) => {
                             <AccordionTrigger className="!no-underline">
                                 Action
                             </AccordionTrigger>
-                            {/* <RenderOutputAccordion
+                            <RenderOutputAccordion
                                 state={state}
                                 nodeConnection={nodeConnection}
-                            /> */}
+                            />
                         </AccordionItem>
                     </Accordion>
                 </TabsContent>

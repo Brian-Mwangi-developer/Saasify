@@ -8,7 +8,7 @@ import { useFuzzieStore } from '@/store'
 import MultipleSelector from '@/components/ui/multiple-selector'
 
 import { AccordionContent } from '@/components/ui/accordion'
-import ConnectionCard from '@/app/(main)/(pages)/connections/_components/connection-cards'
+import ConnectionCard from '@/app/(main)/(pages)/connections/components/connection-cards'
 import { CheckIcon, ChevronsUpDown } from 'lucide-react'
 type Props = {
 
