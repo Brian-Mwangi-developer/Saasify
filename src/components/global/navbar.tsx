@@ -6,7 +6,7 @@ import Link from 'next/link'
 import React from 'react'
 
 const Navbar = async () => {
-    // const user = await currentUser()
+    const user = await currentUser()
 
     return (
         <header className="fixed right-0 left-0 top-0 py-4 px-4 bg-black/40 backdrop-blur-lg z-[100]
@@ -55,10 +55,10 @@ const Navbar = async () => {
                     <span className="inline-flex h-full w-full cursor-pointer items-center justify-center
                      rounded-full bg-slate-950 px-3 py-1 text-sm font-medium text-white backdrop-blur-3xl">
                         {/* //wire Up User */}
-                        {true ? 'Dashboard' : 'Get Started'}
+                        {user ? 'Dashboard' : 'Get Started'}
                     </span>
                 </Link>
-                {/* {user ? <UserButton afterSignOutUrl="/" /> : null} */}
+                {user ? <UserButton afterSignOutUrl="/" /> : null}
                 <UserButton />
                 <MenuIcon className="md:hidden" />
 

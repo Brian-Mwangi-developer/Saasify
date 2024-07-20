@@ -1,3 +1,4 @@
+
 import React from 'react'
 import {
   Card,
@@ -9,6 +10,8 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Label } from '@/components/ui/label'
 import { Switch } from '@/components/ui/switch'
+import { toast } from 'sonner'
+import { onFlowPublish } from '../_actions/workflow-connections'
 type Props = {
   name: string
   description: string
@@ -17,6 +20,13 @@ type Props = {
 }
 
 const WorkflowCard = ({ description, id, name, publish }: Props) => {
+  const onPublishFlow = async(event:any) =>{
+    const response = await onFlowPublish(
+      id,
+      event.target.ariaChecked === "false"
+    )
+    if (response) toast.message(response)
+  }
   return (
     //Check Back
     <Card className="flex w-full items-center justify-between">
@@ -60,7 +70,7 @@ const WorkflowCard = ({ description, id, name, publish }: Props) => {
         </Label>
         <Switch
           id="airplane-mode"
-          // onClick={onPublishFlow}
+          onClick={onPublishFlow}
           defaultChecked={publish!}
         />
       </div>
